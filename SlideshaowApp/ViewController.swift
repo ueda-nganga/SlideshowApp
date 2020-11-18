@@ -10,12 +10,12 @@ import UIKit
 class ViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var startButton: UIButton!
-    
+    @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var backButton: UIButton!
+
     var nowIndex:Int = 0
     
     var timer: Timer!
-    
-    var flag:Int! = nil
     
     var imageArray:[UIImage] = [
         UIImage(named: "1.jpg")!,
@@ -33,25 +33,21 @@ class ViewController: UIViewController {
     }
 
     @IBAction func nextButton(_ sender: Any) {
-        if (flag == nil) {
             nowIndex += 1
             
             if (nowIndex == imageArray.count) {
                 nowIndex = 0
             }
             imageView.image = imageArray[nowIndex]
-        }
     }
     
     @IBAction func backButton(_ sender: Any) {
-        if (flag == nil) {
             nowIndex -= 1
             
             if (nowIndex < 0) {
                 nowIndex = 4
             }
             imageView.image = imageArray[nowIndex]
-        }
     }
     
     @IBAction func slideShowButton(_ sender: Any) {
@@ -59,15 +55,18 @@ class ViewController: UIViewController {
             timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(changeImage), userInfo: nil, repeats: true)
             
             startButton.setTitle("停止", for: .normal)
-            flag = 0
+
+            nextButton.isEnabled = false
+            backButton.isEnabled = false
         } else {
             timer.invalidate()
             
             timer = nil
             
-            flag = nil
-            
             startButton.setTitle("再生", for: .normal)
+
+            nextButton.isEnabled = true
+            backButton.isEnabled = true
         }
     }
     
@@ -96,8 +95,6 @@ class ViewController: UIViewController {
         timer.invalidate()
         
         timer = nil
-        
-        flag = nil
         
         startButton.setTitle("再生", for: .normal)
         }
