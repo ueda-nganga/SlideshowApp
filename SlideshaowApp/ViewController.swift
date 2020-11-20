@@ -92,11 +92,14 @@ class ViewController: UIViewController {
         zoomViewController.nowIndex = nowIndex
         
         if(timer != nil) {
-        timer.invalidate()
+            timer.invalidate()
         
-        timer = nil
-        
-        startButton.setTitle("再生", for: .normal)
+            timer = nil
+
+            startButton.setTitle("再生", for: .normal)
+
+            nextButton.isEnabled = true
+            backButton.isEnabled = true
         }
     }
     
